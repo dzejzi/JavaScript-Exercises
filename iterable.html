@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>iterable</title>
+</head>
+<style type="text/css">
+</style>
+
+<body>
+&nbsp;
+</body>
+
+<script type="text/javascript">
+
+    //Obiekt iterowalny:
+    //1. Ma metodę z kluczem 'Symbol.iterator'
+    //2. Ta metoda zwraca iterator poprzez metodę 'next'
+
+    let iter = {
+        0: 'Witaj',
+        1: 'Świecie',
+        2: 'Iteratorów',
+        lenght: 3,
+        [Symbol.iterator](){
+            let index = 0;
+            return{
+                next: () =>{
+                    let value = this[index];
+                    let done = index >= this.lenght;
+                    index++;
+                    return {value, done};
+                }
+            }
+        }
+    }
+
+    for(let i of iter){
+        console.log(i);
+    }
+</script>
+
+</html>
