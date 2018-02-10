@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>generator</title>
+</head>
+<style type="text/css">
+</style>
+
+<body>
+    &nbsp;
+</body>
+
+<script type="text/javascript">
+    function* logger() {
+        yield 'a'
+        yield 'b'
+    }
+    /*----1-next().value---
+        let obj = logger();
+        console.log(obj.next());
+        console.log(obj.next());
+    */
+
+    /*----2-petla for ... of---
+        for(const i of logger()){
+            console.log(i);
+        }
+    */
+
+    /*----3-operator reszty---
+    const arr = [...logger()];
+    console.log(arr);
+    */
+
+    /*----4-destrukturyzacja---
+     */
+    const [x, y] = logger();
+    console.log(x, y);
+</script>
+
+</html>
