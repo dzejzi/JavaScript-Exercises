@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>prototype chain</title>
+</head>
+<style type="text/css">
+</style>
+
+<body>
+    &nbsp;
+</body>
+
+<script type="text/javascript">
+
+    function Shape(){
+        this.name = 'Shape';
+        this.toString = function(){
+            return this.name;
+        }
+    }
+
+    function TwoDShape(){
+        this.name = '2D Shape'
+    }
+
+    function Triangle (side, height){
+        this.name = 'Triangle';
+        this.side = side;
+        this.height = height;
+        this.getArea = function(){
+            return this.side * this.height /2;
+        }
+    }
+        //dziedziczenie
+        TwoDShape.prototype = new Shape;
+        Triangle.prototype = new TwoDShape;
+
+        /*Do realizacji dziedziczenia konieczne jest utworzenie instancji Shape przy użyciu
+        operatora new - nie dziedziczy się bezpośrednio z Shape
+        */
+        //po implementacji dziedziczenia warto na nowo ustawić wartość constructor
+        TwoDShape.prototype.constructor = TwoDShape;
+        Triangle.prototype.constructor = Triangle;
+
+        //tworzymy nowy obiekt Triangle
+
+        var my = new Triangle(5,10);
+        console.log(my.getArea());
+        console.log(my.toString());//Triangle
+
+        //my jest instancją wszystkich trzech konstruktorów
+        console.log(my instanceof Triangle); //true
+        console.log(my instanceof TwoDShape); //true
+        console.log(my instanceof Shape); //true
+
+        
+        console.log(Shape.prototype.isPrototypeOf(my));//true
+        console.log(TwoDShape.prototype.isPrototypeOf(my));//true
+        console.log(Triangle.prototype.isPrototypeOf(my));//true
+</script>
+
+</html>
