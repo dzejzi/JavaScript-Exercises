@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>prototype chain</title>
+</head>
+<style type="text/css">
+</style>
+
+<body>
+    &nbsp;
+</body>
+
+<script type="text/javascript">
+   //dziedziczenie samego prototypu - zwiększenie efektywniści
+
+    //konstruktor
+    function Shape(){}
+
+    //rozszerzanie prototypu
+    Shape.prototype.name = 'Shape';
+    Shape.prototype.toString = function(){
+        return this.name;
+    }
+
+    //kolejny konstruktor
+    function TwoDShape(){}
+
+    //dziedziczenie
+    //TwoDShape.prototype = new Shape;
+    TwoDShape.prototype = Shape.prototype; //dziedziczenie samego prototypu, bez new
+    TwoDShape.prototype.constructor = TwoDShape;
+
+    //rozszerzanie prototypu
+    TwoDShape.prototype.name = '2D Shape';
+
+    //kolejny konstruktor
+    function Triangle (side, height){
+        //zostawiamy właściwości tylko tego konstruktora
+        this.side = side;
+        this.height = height;
+    }
+
+    //dziedziczenie
+    //Triangle.prototype = new TwoDShape;
+    Triangle.prototype = TwoDShape.prototype; //dziedziczenie samego prototypu, bez new
+    Triangle.prototype.constructor = Triangle;
+
+    //rozszerzanie prototypu
+    Triangle.prototype.name = 'Triangle';
+    Triangle.prototype.getArea = function(){
+        return this.side * this.height /2;
+    }
+
+    var my = new Triangle(5,10);
+    console.log(my.getArea());
+    console.log(my.toString());//Triangle
+
+
+
+</script>
+
+</html>
